@@ -7,6 +7,6 @@ Repo for reproducing [Adapting Neural Models with Sequential Monte Carlo Dropout
 - [ ] Give naive dropout architecture
 - [ ] Experiment on 4.1
 - [ ] Reproduce 4.2
-- [ ] Chanllenge 4.3
+- [ ] Challenge 4.3
 - [ ] Report
 - [ ] Bibliography
