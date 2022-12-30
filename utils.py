@@ -87,10 +87,8 @@ def resample(samples, weights):
 	'''systematic resampling'''
 	# weight normalization
 	w = np.array(weights)
-	try: 
-		w /= w.sum()
-	except:
-		print('all weights are zero')
+	assert w.sum() > 0, 'all weights are zero'
+	w /= w.sum()
 	w = w.cumsum()
 	M = len(samples)
 	ptrs = (random.random() + np.arange(M)) / M
