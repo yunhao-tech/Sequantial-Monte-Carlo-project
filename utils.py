@@ -70,19 +70,27 @@ def generate_pd_control_episode(l, n_timesteps):
 		return q_0, x_g, x, z
 
 def flip(x, ratio=0.5):
-	'''binary mask flip by xor'''
+	'''
+	binary mask flip by xor
+	x: array of mask (n_features, n_masks)
+	'''
 	# flip by xor
 	size = len(x)
 	mask = np.zeros_like(x)
 	mask[:(int)(ratio*size)] = 1
-	np.random.shuffle(mask)
+	# each mask is shuffled differently
+	for i in range(x.shape[-1]):
+		np.random.shuffle(mask[:,i])
 	return x ^ mask
 
 def resample(samples, weights):
 	'''systematic resampling'''
 	# weight normalization
 	w = np.array(weights)
-	w /= w.sum()
+	try: 
+		w /= w.sum()
+	except:
+		print('all weights are zero')
 	w = w.cumsum()
 	M = len(samples)
 	ptrs = (random.random() + np.arange(M)) / M
@@ -95,4 +103,4 @@ def resample(samples, weights):
 			i += 1
 		else:
 			j += 1
-	return new_samples
+	return np.asarray(new_samples)
