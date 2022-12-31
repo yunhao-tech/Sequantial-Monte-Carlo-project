@@ -45,6 +45,8 @@ def generate_motor_babbling_episode(l, n_timesteps):
 		u = np.random.randn(2, n_timesteps-1)
 		q = u.cumsum(axis=1) + q_0
 		q = np.concatenate((q_0, q), axis=1)
+		# normalize q into [-pi,pi]
+		q = np.mod(q, 2*np.pi) - np.pi
 		x = fk(q, l=l)
 		z = x + np.random.normal(0, scale=0.001, size=(2, n_timesteps))
 		assert q.shape == x.shape
