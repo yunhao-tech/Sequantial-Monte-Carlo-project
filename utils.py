@@ -71,18 +71,18 @@ def generate_pd_control_episode(l, n_timesteps):
 		z = x + np.random.normal(0, scale=0.001, size=x.shape)
 		return q_0, x_g, x, z
 
-def flip(x, ratio=0.5):
+def flip(x, p):
 	'''
 	binary mask flip by xor
 	x: array of mask (n_features, n_masks)
 	'''
 	# flip by xor
-	size = len(x)
-	mask = np.zeros_like(x)
-	mask[:(int)(ratio*size)] = 1
+	mask = np.random.binomial(1, p, size=x.shape)
+	# mask = np.zeros_like(x)
+	# mask[:(int)(p*size)] = 1
 	# each mask is shuffled differently
-	for i in range(x.shape[-1]):
-		np.random.shuffle(mask[:,i])
+	# for i in range(x.shape[-1]):
+		# np.random.shuffle(mask[:,i])
 	return x ^ mask
 
 def resample(samples, weights):
