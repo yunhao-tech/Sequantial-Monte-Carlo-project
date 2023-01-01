@@ -22,7 +22,7 @@ hyperparams = {
         'output_dim': 2,
         'lr': 1e-4,
         'batch_size': 128,
-        'n_epochs': 100,
+        'n_epochs': 10,
         }
 
 # %% [markdown]
@@ -79,7 +79,7 @@ def train_multi_task(data_loader=train_loader, nb_epochs=hyperparams['n_epochs']
     return total_loss
 
 # %%
-total_loss = train_multi_task(nb_epochs=50) # return a list of loss in different epochs
+total_loss = train_multi_task(nb_epochs=10) # return a list of loss in different epochs
 
 # %%
 plt.plot(total_loss)
@@ -160,7 +160,7 @@ def train_reptile(dataset=train_dataset_reptile, nb_epochs=hyperparams['n_epochs
     return history
 
 # %%
-loss_reptile = train_reptile(nb_epochs=50)
+loss_reptile = train_reptile(nb_epochs=10)
 
 # %%
 # save parameters and optimizer
