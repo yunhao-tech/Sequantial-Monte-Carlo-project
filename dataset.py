@@ -52,6 +52,7 @@ class TwoArmLinkTestDataset(Dataset):
 			'z':[]}
 		self.test = {
 			'q0':[],
+			'x0':[],
 			'xg':[],
 			'x':[],
 			'z':[],
@@ -67,8 +68,9 @@ class TwoArmLinkTestDataset(Dataset):
 				self.adapt['x'].append(x)
 				self.adapt['z'].append(z)
 				# generate pd control
-				q_0, x_g, x, z = generate_pd_control_episode(l, n_timesteps)
+				q_0, x_0, x_g, x, z = generate_pd_control_episode(l, n_timesteps)
 				self.test['q0'].append(q_0)
+				self.test['x0'].append(x_0)
 				self.test['xg'].append(x_g)
 				self.test['x'].append(x)
 				self.test['z'].append(z)
@@ -82,6 +84,7 @@ class TwoArmLinkTestDataset(Dataset):
 		},
 		'test': {
 			"init_angle": torch.tensor(self.test['q0'][index]),
+			"init_pos": torch.tensor(self.test['x0'][index]),
 			"target_pos": torch.tensor(self.test['xg'][index]),
 			"true_pos": torch.tensor(self.test['x'][index]),
 			"noisy_pos": torch.tensor(self.test['z'][index]),
@@ -89,4 +92,4 @@ class TwoArmLinkTestDataset(Dataset):
 		return sample
 
 	def __len__(self):
-		return len(self.x_0)
+		return len(self.l)
