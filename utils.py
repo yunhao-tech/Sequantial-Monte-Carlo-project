@@ -42,19 +42,20 @@ def randpt_in_circle(radius):
 	return np.array([x,y])
 
 def generate_motor_babbling_episode(l, n_timesteps):
-		q_0 = np.random.uniform(low= 0, high= 2*np.pi, size=(2,1))
+		q_0 = np.random.uniform(low= -np.pi, high= np.pi, size=(2,1))
 		u = np.random.randn(2, n_timesteps-1)
 		q = u.cumsum(axis=1) + q_0
 		q = np.concatenate((q_0, q), axis=1)
 		# normalize q into [-pi,pi]
 		q = np.mod(q, 2*np.pi)
+		q[q>np.pi] -= 2 * np.pi
 		x = fk(q, l=l)
 		z = x + np.random.normal(0, scale=0.001, size=(2, n_timesteps))
 		assert q.shape == x.shape
 		return q, x, z
 
 def generate_pd_control_episode(l, n_timesteps):
-		q_0 = np.random.uniform(low= 0, high= 2*np.pi, size=2)
+		q_0 = np.random.uniform(low= -np.pi, high= np.pi, size=2)
 		x_0 = fk(q=q_0,l=l)
 		x_g = randpt_in_circle(radius=0.1) + x_0
 		q_t = q_0.copy()
