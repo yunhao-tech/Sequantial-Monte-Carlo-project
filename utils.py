@@ -87,6 +87,11 @@ def flip(x, p):
 		# np.random.shuffle(mask[:,i])
 	return x ^ mask
 
+def exp_and_normalise(lw):
+	'''Compute normalised weights W, from log weights lw'''
+	w = np.exp(lw-lw.max())
+	return w/w.sum()
+	
 def resample(samples, weights):
 	'''systematic resampling'''
 	# weight normalization

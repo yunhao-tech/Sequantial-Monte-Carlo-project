@@ -172,19 +172,3 @@ torch.save({
 
 # %%
 plt.plot(loss_reptile)
-
-# %% [markdown]
-# # Load model
-
-# %%
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = MyModel().to(device)
-checkpoint = torch.load('Task1_multiTask.pth.tar')
-model.load_state_dict(checkpoint['state_dict'])
-model.eval()
-
-# %%
-l = checkpoint['loss']
-plt.plot(l)
-
-# %%
