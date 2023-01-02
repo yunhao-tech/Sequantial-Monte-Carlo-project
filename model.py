@@ -3,9 +3,9 @@ import torch
 from torch import nn
 
 class DropoutLayer(nn.Module):
-    def __init__(self, hidden_dim):
+    def __init__(self, hidden_dim, n_particle=1):
         super(DropoutLayer, self).__init__()
-        self.mask = torch.ones(hidden_dim, dtype=torch.float32, requires_grad=False)
+        self.mask = torch.ones(size=(n_particle,hidden_dim), dtype=torch.float32, requires_grad=False)
         self.training = False
 
     def forward(self, x):
@@ -20,7 +20,7 @@ class DropoutLayer(nn.Module):
 
 class MyModel(nn.Module):
     def __init__(self, input_dim, hidden_dim, 
-                output_dim):
+                output_dim, n_particle=1):
         super().__init__()
         self.lin1 = nn.Linear(in_features=input_dim, out_features=hidden_dim)
         self.lin2 = nn.Linear(in_features=hidden_dim, out_features=hidden_dim)
@@ -29,7 +29,7 @@ class MyModel(nn.Module):
         # dropout for pretraining and finetunning
         self.dropout_for_GD = nn.Dropout(p=0.5)
         # dropout for smc
-        self.dropout = DropoutLayer(hidden_dim=hidden_dim)
+        self.dropout = DropoutLayer(hidden_dim=hidden_dim , n_particle=n_particle)
 
     def forward(self, x):
         x = self.lin1(x)
