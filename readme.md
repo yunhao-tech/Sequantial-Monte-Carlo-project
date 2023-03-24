@@ -1,14 +1,8 @@
-Repo for reproducing [Adapting Neural Models with Sequential Monte Carlo Dropout
-](https://arxiv.org/abs/2210.15779)
+Project of course "Hidden Markov models and Sequential Monte-Carlo methods" at ENSAE, to reproduce paper [Adapting Neural Models with Sequential Monte Carlo Dropout
+](https://arxiv.org/abs/2210.15779). 
 
-## TODO
-- [x] Define the problem
-- [x] Give naive dropout architecture
-- [x] Experiment on 4.1
-- [x] Reproduce 4.2
-- [x] Challenge 4.3
-- [x] Report
-- [x] Bibliography
+Professor: Chopin Nicolas; Contact: n.chopin.mcmc@gmail.com
+
 
 ## Tips for usage
 - Ignore the `demo` directory. It contains scratch during developpement.
